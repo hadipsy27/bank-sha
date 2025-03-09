@@ -44,4 +44,19 @@ public class Wallet {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
