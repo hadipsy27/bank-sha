@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -54,4 +53,31 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public void setKtp(String ktp) {
+        this.ktp = ktp;
+    }
 }
