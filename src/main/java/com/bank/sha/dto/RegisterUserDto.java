@@ -31,31 +31,4 @@ public class RegisterUserDto {
 
     private String profilePicture;
 
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPin() {
-        return pin;
-    }
-
-    public String getKtp() {
-        return ktp;
-    }
-
-    public String getProfilePicture() {
-        return profilePicture;
-    }
 }
