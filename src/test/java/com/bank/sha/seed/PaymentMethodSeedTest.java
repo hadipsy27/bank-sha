@@ -18,8 +18,8 @@ public class PaymentMethodSeedTest {
 
         PaymentMethod save = PaymentMethod.builder()
                 .name("Bank BWA")
-                .code("bwa")
-                .thumbnail("thumbnail2.jpg")
+                .code("bwa_va")
+                .thumbnail("bwa.jpg")
                 .status(Status.valueOf("ACTIVE"))
                 .build();
 
@@ -27,8 +27,8 @@ public class PaymentMethodSeedTest {
 
         save = PaymentMethod.builder()
                 .name("Bank BNI")
-                .code("bni")
-                .thumbnail("thumbnail3.jpg")
+                .code("bni_va")
+                .thumbnail("bni.jpg")
                 .status(Status.valueOf("ACTIVE"))
                 .build();
 
@@ -36,8 +36,17 @@ public class PaymentMethodSeedTest {
 
         save = PaymentMethod.builder()
                 .name("Bank BRI")
-                .code("bri")
-                .thumbnail("thumbnail4.jpg")
+                .code("bri_va")
+                .thumbnail("bri.jpg")
+                .status(Status.valueOf("ACTIVE"))
+                .build();
+
+        paymentMethodRepository.save(save);
+
+        save = PaymentMethod.builder()
+                .name("Bank BCA")
+                .code("bca_va")
+                .thumbnail("bca.jpg")
                 .status(Status.valueOf("ACTIVE"))
                 .build();
 
