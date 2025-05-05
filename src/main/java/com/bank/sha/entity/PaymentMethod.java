@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "payment_methods")
+@Where(clause = "deleted = false")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class PaymentMethod {
 
@@ -36,6 +38,8 @@ public class PaymentMethod {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    private boolean deleted = false;
 
     private LocalDateTime deletedAt;
 
