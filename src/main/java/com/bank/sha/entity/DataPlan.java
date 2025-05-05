@@ -33,7 +33,7 @@ public class DataPlan {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private OperatorCard operatorCardId;
+    private OperatorCard operatorCard;
 
     @CreatedDate
     @Column(updatable = false)

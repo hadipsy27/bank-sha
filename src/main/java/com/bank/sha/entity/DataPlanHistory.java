@@ -31,11 +31,11 @@ public class DataPlanHistory {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private DataPlan dataPlanId;
+    private DataPlan dataPlan;
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Transaction transactionId;
+    private Transaction transaction;
 
     @CreatedDate
     @Column(updatable = false)
