@@ -35,8 +35,8 @@ public class Transaction {
     private TransactionType transactionTypeId;
 
     @ManyToOne
-    @JoinColumn(name = "payment_methods_id", nullable = false)
-    private PaymentMethods paymentMethodsId;
+    @JoinColumn(name = "payment_method_id", nullable = false)
+    private PaymentMethod paymentMethodId;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)

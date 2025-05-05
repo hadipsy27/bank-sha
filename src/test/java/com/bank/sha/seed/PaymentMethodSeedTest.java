@@ -1,6 +1,6 @@
 package com.bank.sha.seed;
 
-import com.bank.sha.entity.PaymentMethods;
+import com.bank.sha.entity.PaymentMethod;
 import com.bank.sha.entity.enumEntity.Status;
 import com.bank.sha.repository.PaymentMethodRepository;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ public class PaymentMethodSeedTest {
     @Test
     public void testAddPaymentMethod() {
 
-        PaymentMethods save = PaymentMethods.builder()
+        PaymentMethod save = PaymentMethod.builder()
                 .name("Bank BWA")
                 .code("bwa")
                 .thumbnail("thumbnail2.jpg")
@@ -25,7 +25,7 @@ public class PaymentMethodSeedTest {
 
         paymentMethodRepository.save(save);
 
-        save = PaymentMethods.builder()
+        save = PaymentMethod.builder()
                 .name("Bank BNI")
                 .code("bni")
                 .thumbnail("thumbnail3.jpg")
@@ -34,7 +34,7 @@ public class PaymentMethodSeedTest {
 
         paymentMethodRepository.save(save);
 
-        save = PaymentMethods.builder()
+        save = PaymentMethod.builder()
                 .name("Bank BRI")
                 .code("bri")
                 .thumbnail("thumbnail4.jpg")

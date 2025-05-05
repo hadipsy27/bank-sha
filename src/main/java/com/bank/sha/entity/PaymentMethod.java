@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "payment_methods")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class PaymentMethods {
+public class PaymentMethod {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
