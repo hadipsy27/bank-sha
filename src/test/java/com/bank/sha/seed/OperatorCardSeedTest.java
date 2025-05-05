@@ -31,6 +31,13 @@ public class OperatorCardSeedTest {
         operatorCardRepository.save(save);
 
         save = OperatorCard.builder()
+                .name("XL")
+                .status(Status.valueOf("ACTIVE"))
+                .thumbnail("xl.jpg")
+                .build();
+        operatorCardRepository.save(save);
+
+        save = OperatorCard.builder()
                 .name("MTN")
                 .status(Status.valueOf("ACTIVE"))
                 .thumbnail("mtn.jpg")

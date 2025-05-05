@@ -23,55 +23,55 @@ public class DataPlanSeedTest {
         DataPlan dataPlan = new DataPlan();
         dataPlan.setName("10 GB");
         dataPlan.setPrice(BigDecimal.valueOf(100));
-        dataPlan.setOperatorCardId(operatorCardRepository.findByName("Telkomsel"));
+        dataPlan.setOperatorCard(operatorCardRepository.findByName("Telkomsel"));
         dataPlanRepository.save(dataPlan);
 
         dataPlan = new DataPlan();
         dataPlan.setName("50 GB");
         dataPlan.setPrice(BigDecimal.valueOf(500));
-        dataPlan.setOperatorCardId(operatorCardRepository.findByName("Telkomsel"));
+        dataPlan.setOperatorCard(operatorCardRepository.findByName("Telkomsel"));
         dataPlanRepository.save(dataPlan);
 
         dataPlan = new DataPlan();
         dataPlan.setName("100 GB");
         dataPlan.setPrice(BigDecimal.valueOf(1000));
-        dataPlan.setOperatorCardId(operatorCardRepository.findByName("Telkomsel"));
+        dataPlan.setOperatorCard(operatorCardRepository.findByName("Telkomsel"));
         dataPlanRepository.save(dataPlan);
 
         dataPlan = new DataPlan();
         dataPlan.setName("10 GB");
         dataPlan.setPrice(BigDecimal.valueOf(2000));
-        dataPlan.setOperatorCardId(operatorCardRepository.findByName("Indosat"));
+        dataPlan.setOperatorCard(operatorCardRepository.findByName("Indosat"));
         dataPlanRepository.save(dataPlan);
 
         dataPlan = new DataPlan();
         dataPlan.setName("50 GB");
         dataPlan.setPrice(BigDecimal.valueOf(4000));
-        dataPlan.setOperatorCardId(operatorCardRepository.findByName("Indosat"));
+        dataPlan.setOperatorCard(operatorCardRepository.findByName("Indosat"));
         dataPlanRepository.save(dataPlan);
 
         dataPlan = new DataPlan();
         dataPlan.setName("100 GB");
         dataPlan.setPrice(BigDecimal.valueOf(6000));
-        dataPlan.setOperatorCardId(operatorCardRepository.findByName("Indosat"));
+        dataPlan.setOperatorCard(operatorCardRepository.findByName("Indosat"));
         dataPlanRepository.save(dataPlan);
 
         dataPlan = new DataPlan();
         dataPlan.setName("10 GB");
         dataPlan.setPrice(BigDecimal.valueOf(8000));
-        dataPlan.setOperatorCardId(operatorCardRepository.findByName("XL"));
+        dataPlan.setOperatorCard(operatorCardRepository.findByName("XL"));
         dataPlanRepository.save(dataPlan);
 
         dataPlan = new DataPlan();
         dataPlan.setName("50 GB");
         dataPlan.setPrice(BigDecimal.valueOf(16000));
-        dataPlan.setOperatorCardId(operatorCardRepository.findByName("XL"));
+        dataPlan.setOperatorCard(operatorCardRepository.findByName("XL"));
         dataPlanRepository.save(dataPlan);
 
         dataPlan = new DataPlan();
         dataPlan.setName("100 GB");
         dataPlan.setPrice(BigDecimal.valueOf(24000));
-        dataPlan.setOperatorCardId(operatorCardRepository.findByName("XL"));
+        dataPlan.setOperatorCard(operatorCardRepository.findByName("XL"));
         dataPlanRepository.save(dataPlan);
 
         System.out.println("Saved Data Plan: " + dataPlanRepository);
