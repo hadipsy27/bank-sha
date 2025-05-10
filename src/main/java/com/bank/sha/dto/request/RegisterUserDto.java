@@ -1,4 +1,4 @@
-package com.bank.sha.dto;
+package com.bank.sha.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
