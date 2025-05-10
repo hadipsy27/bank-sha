@@ -17,6 +17,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User findUserAndWalletByEmail(String email){
+        return userRepository.findByUserWithWallet(email).orElseThrow(() -> new RuntimeException("User not found"));
+    }
 
 
 }

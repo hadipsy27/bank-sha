@@ -9,7 +9,6 @@ import com.bank.sha.repository.WalletRepository;
 import com.bank.sha.util.SaveImageUtil;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,24 +19,20 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class AuthService {
 
-
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private final PasswordEncoder passwordEncoder;
-    @Autowired
     private final AuthenticationManager authenticationManager;
-    @Autowired
     private WalletRepository walletRepository;
 
     @Transactional
-    public String registerUser(RegisterUserDto registerUserDto) throws Exception{
+    public User registerUser(RegisterUserDto registerUserDto) throws Exception{
         try {
             // Check if a user already exists
             Optional<User> findByEmail = userRepository.findByEmail(registerUserDto.getEmail());
@@ -77,10 +72,12 @@ public class AuthService {
                     .cardNumber(String.valueOf((new SecureRandom().nextLong() & Long.MAX_VALUE) % 1_000_000_000_000_000L))
                     .build();
 
+            user.setWallets(List.of(wallet));
             userRepository.save(user);
             walletRepository.save(wallet);
 
-            return "User registered successfully";
+            return userRepository.findById(user.getId())
+                    .orElseThrow(() -> new RuntimeException("Failed to retrieve saved user"));
         } catch (Exception e) {
             throw new RuntimeException("Registration failed: " + e.getMessage());
         }
