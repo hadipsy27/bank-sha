@@ -7,8 +7,10 @@ import com.bank.sha.entity.User;
 import com.bank.sha.entity.UserPrincipal;
 import com.bank.sha.service.AuthService;
 import com.bank.sha.service.JwtService;
+import com.bank.sha.util.ResponseUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,12 +29,13 @@ public class AuthController {
     private JwtService jwtService;
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterUserDto registerUserDto) throws Exception{
-        return authService.registerUser(registerUserDto);
+    public ResponseEntity<Object> register(@RequestBody RegisterUserDto registerUserDto) throws Exception{
+        String response = authService.registerUser(registerUserDto);
+        return ResponseUtil.generateResponse("Success register", HttpStatus.OK, response);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginUserDto loginUserDto) {
+    public ResponseEntity<Object> login(@RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = authService.authenticate(loginUserDto);
         UserDetails userDetails = new UserPrincipal(authenticatedUser);
         String jwtToken = jwtService.generateToken(userDetails);
@@ -41,6 +44,6 @@ public class AuthController {
                 .expiresIn(jwtService.getExpirationTime())
                 .build();
 
-        return ResponseEntity.ok(response);
+        return ResponseUtil.generateResponse("Success login", HttpStatus.OK, response);
     }
 }
