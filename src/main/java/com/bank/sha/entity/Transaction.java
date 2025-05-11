@@ -39,13 +39,13 @@ public class Transaction {
     private PaymentMethod paymentMethodId;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id")
     private Product productId;
 
     @Column(name = "amount", precision = 10, scale = 2)
     private BigDecimal amount;
 
-    @Column(name = "transaction_code")
+    @Column(name = "transaction_code", unique = true)
     private String transactionCode;
 
     @Column(name = "description")
