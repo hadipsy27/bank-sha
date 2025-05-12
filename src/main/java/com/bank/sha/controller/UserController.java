@@ -2,8 +2,8 @@ package com.bank.sha.controller;
 
 import com.bank.sha.entity.User;
 import com.bank.sha.entity.UserPrincipal;
+import com.bank.sha.handler.ResponseHandler;
 import com.bank.sha.service.UserService;
-import com.bank.sha.util.ResponseUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +21,13 @@ public class UserController {
 
     @GetMapping()
     public ResponseEntity<Object> getUsers() {
-        return ResponseUtil.generateResponse("Success get all user", HttpStatus.OK, userService.getAllUsers());
+        return ResponseHandler.generateResponse("Success get all user", HttpStatus.OK, userService.getAllUsers());
     }
 
     @GetMapping("/me")
     public ResponseEntity<Object> authenticatedUser(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         User user = userPrincipal.getUser();
-        return ResponseUtil.generateResponse("Success get authenticated user", HttpStatus.OK, user);
+        return ResponseHandler.generateResponse("Success get authenticated user", HttpStatus.OK, user);
     }
 
 }

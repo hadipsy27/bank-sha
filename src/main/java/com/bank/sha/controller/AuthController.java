@@ -10,7 +10,7 @@ import com.bank.sha.entity.UserPrincipal;
 import com.bank.sha.service.AuthService;
 import com.bank.sha.service.JwtService;
 import com.bank.sha.service.UserService;
-import com.bank.sha.util.ResponseUtil;
+import com.bank.sha.handler.ResponseHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +36,7 @@ public class AuthController {
     public ResponseEntity<Object> register(@RequestBody RegisterUserDto registerUserDto) throws Exception{
         User registeredUser = authService.registerUser(registerUserDto);
         if (registeredUser == null) {
-            return ResponseUtil.generateResponse("Failed register", HttpStatus.BAD_REQUEST, null);
+            return ResponseHandler.generateResponse("Failed register", HttpStatus.BAD_REQUEST, null);
         }
 
         User userByEmail = userService.findUserAndWalletByEmail(registeredUser.getEmail());
@@ -70,7 +70,7 @@ public class AuthController {
                 .tokenType("Bearer")
                 .build();
 
-        return ResponseUtil.generateResponse("Success register", HttpStatus.OK, response);
+        return ResponseHandler.generateResponse("Success register", HttpStatus.OK, response);
     }
 
     @PostMapping("/login")
@@ -83,6 +83,6 @@ public class AuthController {
                 .expiresIn(jwtService.getExpirationTime())
                 .build();
 
-        return ResponseUtil.generateResponse("Success login", HttpStatus.OK, response);
+        return ResponseHandler.generateResponse("Success login", HttpStatus.OK, response);
     }
 }
