@@ -87,7 +87,10 @@ public class TopUpService {
         body.put("enabled_payments", enablePayment);
 
         // Hit to SnapApi midtrans
-        JSONObject snapTransaction = midtransConfiguration.midtransSnapApi().createTransaction(body);
+        JSONObject snapTransaction = midtransConfiguration.midtransConfigFactory()
+                .getSnapApi()
+                .createTransaction(body);
+
         Map<String, String> result = new HashMap<>();
         result.put("token", snapTransaction.getString("token"));
         result.put("redirect_url", snapTransaction.getString("redirect_url"));
