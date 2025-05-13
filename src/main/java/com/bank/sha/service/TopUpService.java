@@ -1,6 +1,6 @@
 package com.bank.sha.service;
 
-import com.bank.sha.component.MidtransComponent;
+import com.bank.sha.component.MidtransConfiguration;
 import com.bank.sha.dto.request.StoreDto;
 import com.bank.sha.entity.PaymentMethod;
 import com.bank.sha.entity.Transaction;
@@ -34,7 +34,7 @@ public class TopUpService {
     private PaymentMethodRepository paymentMethodRepository;
     private TransactionRepository transactionRepository;
     private PinUtil pinUtil;
-    private MidtransComponent midtransComponent;
+    private MidtransConfiguration midtransConfiguration;
     private static final String TOP_UP_TRANSACTION_TYPE_CODE = "top_up";
 
     @Transactional
@@ -87,7 +87,7 @@ public class TopUpService {
         body.put("enabled_payments", enablePayment);
 
         // Hit to SnapApi midtrans
-        JSONObject snapTransaction = midtransComponent.getSnapApi().createTransaction(body);
+        JSONObject snapTransaction = midtransConfiguration.midtransSnapApi().createTransaction(body);
         Map<String, String> result = new HashMap<>();
         result.put("token", snapTransaction.getString("token"));
         result.put("redirect_url", snapTransaction.getString("redirect_url"));

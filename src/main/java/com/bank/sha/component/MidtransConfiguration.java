@@ -3,13 +3,12 @@ package com.bank.sha.component;
 import com.midtrans.Config;
 import com.midtrans.ConfigFactory;
 import com.midtrans.service.MidtransSnapApi;
-import jakarta.annotation.PostConstruct;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@Component
-public class MidtransComponent {
+@Configuration
+public class MidtransConfiguration {
 
     @Value("${midtrans.server.key}")
     private String midtransServerKey;
@@ -17,17 +16,15 @@ public class MidtransComponent {
     @Value("${midtrans.production}")
     private boolean isProduction;
 
-    @Getter
-    private MidtransSnapApi snapApi;
 
-    @PostConstruct
-    public void init() {
+    @Bean
+    public MidtransSnapApi midtransSnapApi() {
         Config snapConfigOptions = Config.builder()
                 .setServerKey(midtransServerKey)
                 .setIsProduction(isProduction)
                 .build();
 
-        this.snapApi = new ConfigFactory(snapConfigOptions).getSnapApi();
+         return new ConfigFactory(snapConfigOptions).getSnapApi();
     }
 
 }
