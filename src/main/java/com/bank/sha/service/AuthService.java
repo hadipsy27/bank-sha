@@ -9,6 +9,7 @@ import com.bank.sha.repository.WalletRepository;
 import com.bank.sha.util.SaveImageUtil;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,17 +33,17 @@ public class AuthService {
     private WalletRepository walletRepository;
 
     @Transactional
-    public User registerUser(RegisterUserDto registerUserDto) throws Exception{
+    public User registerUser(RegisterUserDto registerUserDto){
         try {
             // Check if a user already exists
             Optional<User> findByEmail = userRepository.findByEmail(registerUserDto.getEmail());
             if (findByEmail.isPresent()) {
-                throw new RuntimeException("User already exists");
+                throw new BadRequestException("User already exists");
             }
 
             User finByUsername = userRepository.findByUsername(registerUserDto.getUsername());
             if (finByUsername != null) {
-                throw new RuntimeException("Username already exists");
+                throw new BadRequestException("Username already exists");
             }
 
             // Save KTP Image
@@ -77,7 +78,7 @@ public class AuthService {
             walletRepository.save(wallet);
 
             return userRepository.findById(user.getId())
-                    .orElseThrow(() -> new RuntimeException("Failed to retrieve saved user"));
+                    .orElseThrow(() -> new BadRequestException("Failed to retrieve saved user"));
         } catch (Exception e) {
             throw new RuntimeException("Registration failed: " + e.getMessage());
         }
