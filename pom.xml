@@ -133,14 +133,14 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-maven-plugin</artifactId>
-				<version>10.20.1</version>
-				<configuration>
+<!--			<plugin>-->
+<!--				<groupId>org.flywaydb</groupId>-->
+<!--				<artifactId>flyway-maven-plugin</artifactId>-->
+<!--				<version>10.20.1</version>-->
+<!--				<configuration>-->
 <!--					<url>${DATABASE_MYSQL_URL}</url>-->
-				</configuration>
-			</plugin>
+<!--				</configuration>-->
+<!--			</plugin>-->
 
 		</plugins>
 	</build>
