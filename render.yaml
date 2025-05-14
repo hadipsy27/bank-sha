@@ -1,8 +1,9 @@
 services:
   - type: web
     name: banksha-app
-    env: java
+    env: docker
     plan: free
+    region: singapore
     buildCommand: ./mvnw clean install
     startCommand: java -jar target/*.jar
     envVars:
