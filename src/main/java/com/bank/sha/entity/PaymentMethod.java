@@ -39,7 +39,8 @@ public class PaymentMethod {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private boolean deleted = false;
+    @Column(name = "deleted", columnDefinition = "TINYINT(1) DEFAULT 0")
+    private boolean deleted;
 
     private LocalDateTime deletedAt;
 
