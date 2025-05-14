@@ -1,11 +1,17 @@
-# Gunakan base image Java
-FROM eclipse-temurin:17-jdk
+# Gunakan base image JDK
+FROM openjdk:17-jdk-slim
 
-# Buat working directory
+# Tambahkan metadata
+#LABEL maintainer="yourname@example.com"
+
+# Buat folder kerja
 WORKDIR /app
 
-# Copy file JAR ke dalam container
-COPY target/*.jar app.jar
+# Salin file JAR hasil build
+COPY build/libs/*.jar app.jar
+
+# Expose port Spring Boot (default 8080)
+EXPOSE 8080
 
 # Jalankan aplikasi
 ENTRYPOINT ["java", "-jar", "app.jar"]
