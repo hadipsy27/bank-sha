@@ -1,0 +1,128 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+}
+
+.success-box {
+    position: relative;
+}
+
+.alien-animation {
+    width: 100px;
+    height: 100px;
+    background-color: #a8dadc;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.eye {
+    width: 20px;
+    height: 20px;
+    background-color: #1d3557;
+    border-radius: 50%;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.mouth {
+    width: 30px;
+    height: 10px;
+    background-color: #e63946;
+    border-radius: 0 0 50% 50%;
+    position: absolute;
+    bottom: 20px;
+    left: 35px;
+}
+
+.title {
+    color: #457b9d;
+    margin-bottom: 10px;
+}
+
+.message {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.details {
+    margin-bottom: 20px;
+}
+
+.details p {
+    color: #333;
+    margin: 5px 0;
+}
+
+.button-container {
+    margin-top: 30px;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #457b9d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #1d3557;
+}
+
+.confetti {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.confetti-piece {
+    width: 10px;
+    height: 10px;
+    background-color: #f4a261;
+    border-radius: 50%;
+    position: absolute;
+    animation: confetti-fall 3s linear infinite;
+}
+
+.confetti-piece:nth-child(1) { left: 10%; background: #ef476f; animation-delay: 0s; }
+.confetti-piece:nth-child(2) { left: 20%; background: #ffd166; animation-delay: 0.4s; }
+.confetti-piece:nth-child(3) { left: 30%; background: #06d6a0; animation-delay: 0.8s; }
+.confetti-piece:nth-child(4) { left: 40%; background: #118ab2; animation-delay: 1.2s; }
+.confetti-piece:nth-child(5) { left: 50%; background: #ef476f; animation-delay: 1.6s; }
+.confetti-piece:nth-child(6) { left: 60%; background: #ffd166; animation-delay: 2.0s; }
+.confetti-piece:nth-child(7) { left: 70%; background: #06d6a0; animation-delay: 2.4s; }
+.confetti-piece:nth-child(8) { left: 80%; background: #118ab2; animation-delay: 2.8s; }
+.confetti-piece:nth-child(9) { left: 90%; background: #ef476f; animation-delay: 0.2s; }
+.confetti-piece:nth-child(10) { left: 5%; background: #ffd166; animation-delay: 0.6s; }
+
+@keyframes confetti-fall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(300px) rotate(720deg);
+    }
+}
