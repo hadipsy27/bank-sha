@@ -1,17 +1,12 @@
-# Gunakan base image JDK
-FROM openjdk:17-jdk-slim
-
-# Tambahkan metadata
-#LABEL maintainer="yourname@example.com"
-
-# Buat folder kerja
+# Stage 1: Build
+FROM maven:3.9.4-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Salin file JAR hasil build
-COPY build/libs/*.jar app.jar
-
-# Expose port Spring Boot (default 8080)
+# Stage 2: Run
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Jalankan aplikasi
 ENTRYPOINT ["java", "-jar", "app.jar"]
