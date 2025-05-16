@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -50,9 +51,11 @@ public class WebhookService {
                     walletRepository.save(getWallet);
                 }
             }
+        } else {
+            status = "Tidak dapat memproses transaksi karena sudah berhasil. Status transaksi: " + getTransactionByCode.getStatus();
         }
 
-        return status;
+        return Map.<String, Object>of("order_id", transactionCode, "status", status);
     }
 
 
