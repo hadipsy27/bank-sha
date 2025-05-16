@@ -18,7 +18,7 @@ public class PaymentMethodSeedTest {
 
         PaymentMethod save = PaymentMethod.builder()
                 .name("Bank BWA")
-                .code("bwa_va")
+                .code("bwa")
                 .thumbnail("bwa.jpg")
                 .status(Status.valueOf("ACTIVE"))
                 .build();

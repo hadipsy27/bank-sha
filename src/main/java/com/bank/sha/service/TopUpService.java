@@ -20,10 +20,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -91,7 +88,14 @@ public class TopUpService {
                 .getSnapApi()
                 .createTransaction(body);
 
-        Map<String, String> result = new HashMap<>();
+        Map<String, String> result = new LinkedHashMap<>();
+        result.put("order_id", transaction.getTransactionCode());
+        result.put("amount", transaction.getAmount().toString());
+        result.put("payment_method_code", storeDto.getPaymentMethodCode());
+        result.put("payment_method", paymentMethod.get().getName());
+        result.put("transaction_type_code", transactionType.get().getCode());
+        result.put("transaction_type", transactionType.get().getName());
+        result.put("status", transaction.getStatus().toString());
         result.put("token", snapTransaction.getString("token"));
         result.put("redirect_url", snapTransaction.getString("redirect_url"));
 
