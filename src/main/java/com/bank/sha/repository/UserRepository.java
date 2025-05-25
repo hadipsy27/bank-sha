@@ -17,6 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUserWithWallet(@Param("email") String email);
 
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.wallets w WHERE w.user.id = u.id AND u.email = COALESCE(:email, null) OR w.cardNumber = COALESCE(:cardNumber, null) ")
-    Optional<User> findByUserWithWalletByEmailAndCardNumber(@Param("email") String email, @Param("cardNumber") String cardNumber);
+    Optional<User> findByUserWithWalletByEmailOrCardNumber(@Param("email") String email, @Param("cardNumber") String cardNumber);
 
 }

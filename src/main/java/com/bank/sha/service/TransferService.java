@@ -25,8 +25,8 @@ public class TransferService {
     private UserRepository userRepository;
     private WalletRepository walletRepository;
 
-    public TransferBwaResponseDto transferBankWolesAja(TransferBwaDto transferBwaDto, Long userId) throws BadRequestException {
-        User recipient = userRepository.findByUserWithWalletByEmailAndCardNumber(
+    public TransferBwaResponseDto transferBankWolesAja(TransferBwaDto transferBwaDto, Long userId) throws Exception {
+        User recipient = userRepository.findByUserWithWalletByEmailOrCardNumber(
                         transferBwaDto.getSendTo(),
                         transferBwaDto.getSendTo())
                 .orElseThrow(() -> new BadRequestException("Recipient not found"));
@@ -34,8 +34,10 @@ public class TransferService {
         Wallet senderWallet = walletRepository.findByUserId(userId);
         if (senderWallet == null) throw new BadRequestException("Wallet user is not found");
         if (!senderWallet.getPin().equals(transferBwaDto.getPin())) throw new BadRequestException("Your PIN is wrong");
-        if (senderWallet.getId().equals(recipient.getWallets().get(0).getId())) throw new BadRequestException("You cannot transfer to your own wallet");
-        if (senderWallet.getBalance().compareTo(BigDecimal.valueOf(transferBwaDto.getAmount())) < 0) throw new BadRequestException("Your balance is not enough");
+        if (senderWallet.getId().equals(recipient.getWallets().get(0).getId()))
+            throw new BadRequestException("You cannot transfer to your own wallet");
+        if (senderWallet.getBalance().compareTo(BigDecimal.valueOf(transferBwaDto.getAmount())) < 0)
+            throw new BadRequestException("Your balance is not enough");
 
         List<TransactionType> transactionType = transactionTypeRepository.findByCodeIn(List.of("receive", "transfer"), Sort.by(Sort.Direction.ASC, "code"));
         Long receiveTransactionTypeId = transactionType.get(0).getId();

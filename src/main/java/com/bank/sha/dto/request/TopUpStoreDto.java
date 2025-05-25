@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class StoreDto {
+public class TopUpStoreDto {
 
     @NotNull(message = "Amount is required")
     @Min(value = 10000, message = "Minimum amount is 10000")

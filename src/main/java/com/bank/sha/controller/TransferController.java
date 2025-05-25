@@ -6,7 +6,6 @@ import com.bank.sha.entity.UserPrincipal;
 import com.bank.sha.handler.ResponseHandler;
 import com.bank.sha.service.TransferService;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,7 +22,7 @@ public class TransferController {
     private TransferService transferService;
 
     @PostMapping("/bwa")
-    public ResponseEntity<Object> transferBankWolesAja(@RequestBody TransferBwaDto request, @AuthenticationPrincipal UserPrincipal userPrincipal) throws BadRequestException {
+    public ResponseEntity<Object> transferBankWolesAja(@RequestBody TransferBwaDto request, @AuthenticationPrincipal UserPrincipal userPrincipal) throws Exception {
         TransferBwaResponseDto response = transferService.transferBankWolesAja(request, userPrincipal.getUser().getId());
         return ResponseHandler.generateResponse("Success transfer", HttpStatus.OK, response);
     }

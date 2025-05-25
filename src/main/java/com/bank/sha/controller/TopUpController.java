@@ -1,6 +1,6 @@
 package com.bank.sha.controller;
 
-import com.bank.sha.dto.request.StoreDto;
+import com.bank.sha.dto.request.TopUpStoreDto;
 import com.bank.sha.entity.UserPrincipal;
 import com.bank.sha.handler.ResponseHandler;
 import com.bank.sha.service.TopUpService;
@@ -25,9 +25,9 @@ public class TopUpController {
     private TopUpService topUpService;
 
     @RequestMapping("/store")
-    public ResponseEntity<Object> store(@RequestBody @Valid StoreDto storeDto, @AuthenticationPrincipal UserPrincipal userPrincipal) throws Exception {
+    public ResponseEntity<Object> store(@RequestBody @Valid TopUpStoreDto topUpStoreDto, @AuthenticationPrincipal UserPrincipal userPrincipal) throws Exception {
         log.info("User Id : {}", userPrincipal.getUser().getId());
-        Object store = topUpService.store(storeDto, userPrincipal.getUser().getId());
+        Object store = topUpService.store(topUpStoreDto, userPrincipal.getUser().getId());
 
         return ResponseHandler.generateResponse("Success", HttpStatus.OK, store);
     }

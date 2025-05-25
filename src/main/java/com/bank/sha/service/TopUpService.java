@@ -1,7 +1,7 @@
 package com.bank.sha.service;
 
 import com.bank.sha.component.MidtransConfiguration;
-import com.bank.sha.dto.request.StoreDto;
+import com.bank.sha.dto.request.TopUpStoreDto;
 import com.bank.sha.entity.PaymentMethod;
 import com.bank.sha.entity.Transaction;
 import com.bank.sha.entity.TransactionType;
@@ -35,15 +35,15 @@ public class TopUpService {
     private static final String TOP_UP_TRANSACTION_TYPE_CODE = "top_up";
 
     @Transactional
-    public Object store(StoreDto storeDto, Long userId) throws Exception {
+    public Object store(TopUpStoreDto topUpStoreDto, Long userId) throws Exception {
 
         // PIN Checker
-        boolean pinChecker = pinUtil.pinChecker(storeDto.getPin(), userId);
+        boolean pinChecker = pinUtil.pinChecker(topUpStoreDto.getPin(), userId);
         if (!pinChecker) throw new BadRequestException("Your PIN is wrong");
 
         // Get Transaction Type and Payment Method
         Optional<TransactionType> transactionType = transactionTypeRepository.findFirstByCode(TOP_UP_TRANSACTION_TYPE_CODE);
-        Optional<PaymentMethod> paymentMethod = paymentMethodRepository.findFirstByCode(storeDto.getPaymentMethodCode());
+        Optional<PaymentMethod> paymentMethod = paymentMethodRepository.findFirstByCode(topUpStoreDto.getPaymentMethodCode());
         if (transactionType.isEmpty() || paymentMethod.isEmpty()) throw new BadRequestException("Transaction type or payment method not found");
 
         // Build a Transaction model
@@ -51,9 +51,9 @@ public class TopUpService {
                 .userId(User.builder().id(userId).build())
                 .paymentMethodId(PaymentMethod.builder().id(paymentMethod.get().getId()).build())
                 .transactionTypeId(TransactionType.builder().id(transactionType.get().getId()).build())
-                .amount(BigDecimal.valueOf(storeDto.getAmount()))
+                .amount(BigDecimal.valueOf(topUpStoreDto.getAmount()))
                 .transactionCode(RandomStringGeneratorUtil.generateRandomUppercaseStringLetterAndNumber(10))
-                .description("Top up via " + paymentMethod.get().getName() + " with amount " + storeDto.getAmount())
+                .description("Top up via " + paymentMethod.get().getName() + " with amount " + topUpStoreDto.getAmount())
                 .status(Status.PENDING)
                 .build();
 
@@ -74,7 +74,7 @@ public class TopUpService {
         creditCard.put("secure", "true");
 
         // enabled_payments
-        List<String> enablePayment = List.of(storeDto.getPaymentMethodCode());
+        List<String> enablePayment = List.of(topUpStoreDto.getPaymentMethodCode());
 
         // Build Body Request to midtrans
         Map<String, Object> body = new HashMap<>();
@@ -91,7 +91,7 @@ public class TopUpService {
         Map<String, String> result = new LinkedHashMap<>();
         result.put("order_id", transaction.getTransactionCode());
         result.put("amount", transaction.getAmount().toString());
-        result.put("payment_method_code", storeDto.getPaymentMethodCode());
+        result.put("payment_method_code", topUpStoreDto.getPaymentMethodCode());
         result.put("payment_method", paymentMethod.get().getName());
         result.put("transaction_type_code", transactionType.get().getCode());
         result.put("transaction_type", transactionType.get().getName());

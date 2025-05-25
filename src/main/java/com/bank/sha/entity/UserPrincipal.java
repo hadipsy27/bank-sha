@@ -1,11 +1,11 @@
 package com.bank.sha.entity;
 
-import com.bank.sha.repository.UserRepository;
-import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 public class UserPrincipal implements UserDetails {
 
-    @Autowired
     private final User user;
 
     @Override
