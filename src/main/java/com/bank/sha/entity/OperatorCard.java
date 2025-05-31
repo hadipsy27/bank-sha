@@ -13,6 +13,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -34,6 +35,9 @@ public class OperatorCard {
     private Status status;
 
     private String thumbnail;
+
+    @OneToMany(mappedBy = "operatorCard", fetch = FetchType.LAZY)
+    private List<DataPlan> dataPlans;
 
     @CreatedDate
     @Column(updatable = false)

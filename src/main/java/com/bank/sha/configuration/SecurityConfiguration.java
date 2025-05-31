@@ -32,6 +32,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/webhook/transaction").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/operatorcard").permitAll()
+                        .requestMatchers("/dataplan/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

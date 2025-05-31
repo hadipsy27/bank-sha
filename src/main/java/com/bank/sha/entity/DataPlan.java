@@ -32,7 +32,7 @@ public class DataPlan {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "operator_card_id")
     private OperatorCard operatorCard;
 
     @CreatedDate
