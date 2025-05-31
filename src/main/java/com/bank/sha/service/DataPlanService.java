@@ -8,9 +8,13 @@ import com.bank.sha.util.PinUtil;
 import com.bank.sha.util.RandomStringGeneratorUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
+@Slf4j
 @Service
 @AllArgsConstructor
 public class DataPlanService {
@@ -24,7 +28,7 @@ public class DataPlanService {
     private DataPlanHistoryRepository dataPlanHistoryRepository;
     private PinUtil pinUtil;
 
-    private String store(DataPlanStoreRequest request, Long userId) throws Exception {
+    public Object store(DataPlanStoreRequest request, Long userId) throws Exception {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
         TransactionType transactionType = transactionTypeRepository.findFirstByCode("internet").orElseThrow(() -> new EntityNotFoundException("TransactionType not found"));
         PaymentMethod paymentMethod = paymentMethodRepository.findFirstByCode("bwa").orElseThrow(() -> new EntityNotFoundException("PaymentMethod not found"));
@@ -42,7 +46,7 @@ public class DataPlanService {
 
         String transactionCode = RandomStringGeneratorUtil.generateRandomUppercaseStringLetterAndNumber(10);
         Transaction transaction = Transaction.builder()
-                .userId(User.builder().id(user.getId()).build())
+                .userId(User.builder().id(userId).build())
                 .transactionTypeId(TransactionType.builder().id(transactionType.getId()).build())
                 .paymentMethodId(PaymentMethod.builder().id(paymentMethod.getId()).build())
                 .amount(dataPlanById.getPrice())
@@ -59,9 +63,15 @@ public class DataPlanService {
                 .build();
         dataPlanHistoryRepository.save(dataPlanHistory);
 
-        Wallet wallet = Wallet.builder().id(userWallet.getId()).balance(userWallet.getBalance().add(dataPlanById.getPrice())).build();
+        BigDecimal userBalance = userWallet.getBalance().subtract(dataPlanById.getPrice());
+        Wallet wallet = Wallet.builder()
+                .id(userWallet.getId())
+                .user(User.builder().id(userId).build())
+                .balance(userBalance)
+                .build();
         walletRepository.save(wallet);
 
+        log.info("Data plan {} successfully bought by user {}", dataPlanById.getName(), user.getName());
         return "Success buy paket data";
     }
 

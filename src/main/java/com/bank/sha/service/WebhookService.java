@@ -49,6 +49,7 @@ public class WebhookService {
                     BigDecimal totalBalance = balance.add(amount);
                     getWallet.setBalance(totalBalance);
                     walletRepository.save(getWallet);
+                    log.info("Transaction from:, amount: status:, total balance:  {}, {}, {}, {}" , wallet.get().getUser().getName(), amount, status, totalBalance);
                 }
             }
         } else {
