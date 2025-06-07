@@ -6,7 +6,6 @@ import com.bank.sha.entity.OperatorCard;
 import com.bank.sha.repository.OperatorCardRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -23,12 +22,9 @@ import java.util.stream.Collectors;
 public class OperatorCardService {
 
     private OperatorCardRepository operatorCardRepository;
-    private ServerProperties serverProperties;
-
-    private final static String host = "http://localhost";
 
     @Transactional(readOnly = true)
-    public Page<OperatorCardResponse> getAllOperatorCardsWithPlans(int page, int size) throws Exception {
+    public Page<OperatorCardResponse> getAllOperatorCardsWithPlans(int page, int size) throws Exception{
         Pageable pageable = PageRequest.of(page, size);
         Page<OperatorCard> pageResult = operatorCardRepository.findAllBasic(pageable);
 
@@ -36,7 +32,7 @@ public class OperatorCardService {
                 .map(card -> new OperatorCardResponse(
                         card.getId(),
                         card.getName(),
-                        host + ":" + serverProperties.getPort().toString() + "/dataplan/" + card.getThumbnail(),
+                        "/dataplan/" + card.getThumbnail(),
                         card.getStatus(),
                         card.getDataPlans().stream()
                                 .map(plan -> new DataPlanResponse(
