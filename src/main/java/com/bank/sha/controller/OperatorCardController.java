@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/operatorcard")
+@RequestMapping("/api/v1/operator-card")
 @AllArgsConstructor
 public class OperatorCardController {
 

@@ -32,8 +32,12 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/webhook/transaction").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/operatorcard").permitAll()
-                        .requestMatchers("/dataplan/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/operator-card").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/payment-method").permitAll()
+
+                        // Allow Image URL
+                        .requestMatchers("/data-plan/**").permitAll()
+                        .requestMatchers("/banks/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
